@@ -52,6 +52,5 @@ Tables:
 - JWT_SECRET
 
 ## Author
-Mukesb Kumar
-Java Spring Boot Backend Developer
+Mukesb Kumar | Java Spring Boot Backend Developer
 
