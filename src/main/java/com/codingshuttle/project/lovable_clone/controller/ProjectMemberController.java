@@ -3,7 +3,6 @@ package com.codingshuttle.project.lovable_clone.controller;
 import com.codingshuttle.project.lovable_clone.dto.member.InviteMemberRequest;
 import com.codingshuttle.project.lovable_clone.dto.member.MemberResponse;
 import com.codingshuttle.project.lovable_clone.dto.member.UpdateMemberRoleRequest;
-import com.codingshuttle.project.lovable_clone.entity.ProjectMember;
 import com.codingshuttle.project.lovable_clone.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,22 +34,23 @@ public class ProjectMemberController {
         );
     }
 
-    @PatchMapping("{/memberId}")
+    @PatchMapping("/{memberId}")
     public ResponseEntity<MemberResponse> updateMemberRole(
             @PathVariable Long projectId,
             @PathVariable Long memberId,
             @RequestBody UpdateMemberRoleRequest request
     ){
         Long userId = 1L;
-        return ResponseEntity.ok(projectMemberService.updateMemberRole(projectId, request, userId));
+        return ResponseEntity.ok(projectMemberService.updateMemberRole(projectId, memberId, request, userId));
     }
 
-    @DeleteMapping("{/memberId}")
-    public ResponseEntity<MemberResponse> deleteMember(
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<Void> removeMember(
             @PathVariable Long projectId,
             @PathVariable Long memberId
     ){
         Long userId = 1L;
-        return ResponseEntity.ok(projectMemberService.deleteProjectMember(projectId, memberId, userId));
+        projectMemberService.removeProjectMember(projectId, memberId, userId);
+        return ResponseEntity.noContent().build();
     }
 }
